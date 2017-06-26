@@ -1,14 +1,14 @@
 import React from 'react';
 import Layout from '../../components/Layout';
-import Login from './Login';
+import Install from './Install';
 
-const title = 'Sign In';
+const title = 'New User Registration';
 
 function action() {
   return {
-    chunks: ['login'],
+    chunks: ['install'],
     title,
-    component: <Layout><Login /></Layout>,
+    component: <Layout><Install /></Layout>,
   };
 }
 
