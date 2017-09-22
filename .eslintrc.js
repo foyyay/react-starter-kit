@@ -14,12 +14,14 @@ module.exports = {
 
   extends: [
     'airbnb',
+    'plugin:flowtype/recommended',
     'plugin:css-modules/recommended',
+    'prettier',
+    'prettier/flowtype',
+    'prettier/react',
   ],
 
-  plugins: [
-    'css-modules',
-  ],
+  plugins: ['flowtype', 'css-modules', 'prettier'],
 
   globals: {
     __DEV__: true,
@@ -55,12 +57,30 @@ module.exports = {
       },
     ],
 
-    // Allow js files to use jsx syntax, too
-    'react/jsx-filename-extension': 'off',
+    // a11y removed rule, ignore them
+    'jsx-a11y/href-no-hash': 'off',
 
+    // https://github.com/evcohen/eslint-plugin-jsx-a11y/issues/308#issuecomment-322954274
+    'jsx-a11y/label-has-for': 'warn',
+
+    // Allow js files to use jsx syntax, too
+    'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx'] }],
+
+    // Automatically convert pure class to function by
+    // babel-plugin-transform-react-pure-class-to-function
     // https://github.com/kriasoft/react-starter-kit/pull/961
-    // You can reopen this if you still want this rule
     'react/prefer-stateless-function': 'off',
+
+    // ESLint plugin for prettier formatting
+    // https://github.com/prettier/eslint-plugin-prettier
+    'prettier/prettier': [
+      'error',
+      {
+        // https://github.com/prettier/prettier#options
+        singleQuote: true,
+        trailingComma: 'all',
+      },
+    ],
   },
 
   settings: {

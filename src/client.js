@@ -7,6 +7,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+import 'whatwg-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import deepForceUpdate from 'react-deep-force-update';
@@ -29,10 +30,12 @@ const context = {
   insertCss: (...styles) => {
     // eslint-disable-next-line no-underscore-dangle
     const removeCss = styles.map(x => x._insertCss());
-    return () => { removeCss.forEach(f => f()); };
+    return () => {
+      removeCss.forEach(f => f());
+    };
   },
   // Universal HTTP client
-  fetch: createFetch({
+  fetch: createFetch(self.fetch, {
     baseUrl: window.App.apiUrl,
   }),
   // Initialize a new Redux store
@@ -131,7 +134,7 @@ async function onLocationChange(location, action) {
     appInstance = ReactDOM.render(
       <App context={context}>{route.component}</App>,
       container,
-      () => onRenderComplete(route, location),
+      () => onRenderComplete(route, location)
     );
   } catch (error) {
     if (__DEV__) {
